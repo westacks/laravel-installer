@@ -24,11 +24,51 @@ return [
     |
     | WARNING! Changing it back to "false" during production will cause breaking
     | permission issues and expose private env variables. Do it only if you know
-    | what you are doing or be sure you running you application under maintainance
-    | mode: https://laravel.com/docs/configuration#maintenance-mode
+    | what you are doing or be sure that you are running you application under
+    | maintainance mode: https://laravel.com/docs/configuration#maintenance-mode
     |
     */
     "app_configured" => env('APP_CONFIGURED', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Server Requirements
+    |--------------------------------------------------------------------------
+    |
+    | This is the default Laravel server requirements, you can add as many
+    | as your application require, we check if the extension is enabled
+    | by looping through the array and run "extension_loaded" on it.
+    |
+    */
+    'requirements' => [
+        'php_version' => '7.2.0',
+        'php' => [
+            'openssl',
+            'pdo',
+            'mbstring',
+            'tokenizer',
+            'JSON',
+            'cURL',
+        ],
+        'apache' => [
+            'mod_rewrite',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Folders Permissions
+    |--------------------------------------------------------------------------
+    |
+    | This is the default Laravel folders permissions, if your application
+    | requires more permissions just add them to the array list bellow.
+    |
+    */
+    'permissions' => [
+        'storage/framework/'     => '775',
+        'storage/logs/'          => '775',
+        'bootstrap/cache/'       => '775',
+    ],
 
     /*-----------------------------------------------------------------------------
     | Environment specific worker tasks
