@@ -10,7 +10,13 @@ class InstallController extends Controller
 {
     public function requirements()
     {
-        $requirements = RequirementsChecker::check(config('installer.requirements'));
+        $requirements = RequirementsChecker::requirements(config('installer.requirements'));
         return view('installer::requirements', compact('requirements'));
+    }
+
+    public function permissions()
+    {
+        $permissions = RequirementsChecker::permissions(config('installer.permissions'));
+        return view('installer::permissions', compact('permissions'));
     }
 }

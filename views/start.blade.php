@@ -7,7 +7,7 @@
 <body>
     @include('installer::include.wizard', ['step' => 1])
 
-    <div style="min-height: calc(100vh - 220px)" class="flex flex-col items-center justify-center">
+    <div style="min-height: calc(100vh - 224px)" class="flex flex-col items-center justify-center">
         <div class="text-center text-3xl mt-6 font-bold">
             Welcome to Application Setup Wizard!
         </div>
@@ -16,8 +16,8 @@
             We will help you to configure your application step by step.
         </div>
 
-        <div class="text-center mt-7">
-            <a href="{{ route('installer.requirements') }}" class="mx-auto bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-full">
+        <div class="text-center mt-8">
+            <a href="{{ route('install.requirements') }}" class="mx-auto bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-full">
                 Check server requirements <i class="ml-2 fas fa-arrow-right"></i>
             </a>
         </div>
