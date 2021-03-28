@@ -2,7 +2,9 @@
 
 namespace WeStacks\Laravel\Installer\Providers;
 
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
+use WeStacks\Laravel\Installer\Middleware\InstallMiddleware;
 
 class LaravelnstallerServiceProvider extends ServiceProvider
 {
@@ -13,8 +15,13 @@ class LaravelnstallerServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../config/installer.php' => $this->getConfigPath('installer.php'),
             __DIR__.'/../../public/install.php' => $this->getPublicPath('install.php'),
-            __DIR__.'/../../views' => $this->getBasePath('resources/views/vendor/installer'),
         ], 'installer');
+        $this->publishes([
+            __DIR__.'/../../views' => $this->getBasePath('resources/views/vendor/installer'),
+        ], 'installer.views');
+
+        $kernel = $this->app->make(Kernel::class);
+        $kernel->pushMiddleware(InstallMiddleware::class);
     }
 
     public function register()
