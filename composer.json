@@ -1,6 +1,6 @@
 {
     "name": "westacks/laravel-installer",
-    "description": "Automaticaly istall, configure and update your client's Laravel apps from source using web interface or artissan console.",
+    "description": "Automaticaly install, update and configure your client's Laravel apps from source using web interface or artissan console.",
     "type": "library",
     "homepage": "https://github.com/westacks/laravel-installer",
     "license": "MIT",

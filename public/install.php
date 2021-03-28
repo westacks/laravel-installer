@@ -18,8 +18,6 @@
         unlink('public/install.php');
         die('Application initialized!');
     }
-    // Install from web
-    header("Location: /install");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,12 +25,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Initializing...</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <style>
-        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
         body {
+            font-family: 'Nunito', sans-serif;
+            color: rgb(26,32,44);
             height: 100vh;
             display: flex;
+            font-size: 18px;
             align-items: center;
             justify-content: center;
             flex-direction: column;
@@ -98,9 +99,6 @@
             left: -19px;
         }
         .text {
-            color: lightgray;
-            font-size: 18px;
-            font-family: "Open Sans", sans-serif;
             text-align: center;
         }
     </style>
@@ -109,21 +107,21 @@
 <body>
     <div class="load">
         <div class="gear one">
-            <svg id="blue" viewBox="0 0 100 100" fill="#94DDFF">
+            <svg viewBox="0 0 100 100" fill="#EF3B2D">
                 <path
                     d="M97.6,55.7V44.3l-13.6-2.9c-0.8-3.3-2.1-6.4-3.9-9.3l7.6-11.7l-8-8L67.9,20c-2.9-1.7-6-3.1-9.3-3.9L55.7,2.4H44.3l-2.9,13.6      c-3.3,0.8-6.4,2.1-9.3,3.9l-11.7-7.6l-8,8L20,32.1c-1.7,2.9-3.1,6-3.9,9.3L2.4,44.3v11.4l13.6,2.9c0.8,3.3,2.1,6.4,3.9,9.3      l-7.6,11.7l8,8L32.1,80c2.9,1.7,6,3.1,9.3,3.9l2.9,13.6h11.4l2.9-13.6c3.3-0.8,6.4-2.1,9.3-3.9l11.7,7.6l8-8L80,67.9      c1.7-2.9,3.1-6,3.9-9.3L97.6,55.7z M50,65.6c-8.7,0-15.6-7-15.6-15.6s7-15.6,15.6-15.6s15.6,7,15.6,15.6S58.7,65.6,50,65.6z">
                 </path>
             </svg>
         </div>
         <div class="gear two">
-            <svg id="pink" viewBox="0 0 100 100" fill="#FB8BB9">
+            <svg viewBox="0 0 100 100" fill="#EF3B2D">
                 <path
                     d="M97.6,55.7V44.3l-13.6-2.9c-0.8-3.3-2.1-6.4-3.9-9.3l7.6-11.7l-8-8L67.9,20c-2.9-1.7-6-3.1-9.3-3.9L55.7,2.4H44.3l-2.9,13.6      c-3.3,0.8-6.4,2.1-9.3,3.9l-11.7-7.6l-8,8L20,32.1c-1.7,2.9-3.1,6-3.9,9.3L2.4,44.3v11.4l13.6,2.9c0.8,3.3,2.1,6.4,3.9,9.3      l-7.6,11.7l8,8L32.1,80c2.9,1.7,6,3.1,9.3,3.9l2.9,13.6h11.4l2.9-13.6c3.3-0.8,6.4-2.1,9.3-3.9l11.7,7.6l8-8L80,67.9      c1.7-2.9,3.1-6,3.9-9.3L97.6,55.7z M50,65.6c-8.7,0-15.6-7-15.6-15.6s7-15.6,15.6-15.6s15.6,7,15.6,15.6S58.7,65.6,50,65.6z">
                 </path>
             </svg>
         </div>
         <div class="gear three">
-            <svg id="yellow" viewBox="0 0 100 100" fill="#FFCD5C">
+            <svg viewBox="0 0 100 100" fill="#EF3B2D">
                 <path
                     d="M97.6,55.7V44.3l-13.6-2.9c-0.8-3.3-2.1-6.4-3.9-9.3l7.6-11.7l-8-8L67.9,20c-2.9-1.7-6-3.1-9.3-3.9L55.7,2.4H44.3l-2.9,13.6      c-3.3,0.8-6.4,2.1-9.3,3.9l-11.7-7.6l-8,8L20,32.1c-1.7,2.9-3.1,6-3.9,9.3L2.4,44.3v11.4l13.6,2.9c0.8,3.3,2.1,6.4,3.9,9.3      l-7.6,11.7l8,8L32.1,80c2.9,1.7,6,3.1,9.3,3.9l2.9,13.6h11.4l2.9-13.6c3.3-0.8,6.4-2.1,9.3-3.9l11.7,7.6l8-8L80,67.9      c1.7-2.9,3.1-6,3.9-9.3L97.6,55.7z M50,65.6c-8.7,0-15.6-7-15.6-15.6s7-15.6,15.6-15.6s15.6,7,15.6,15.6S58.7,65.6,50,65.6z">
                 </path>
@@ -150,6 +148,9 @@
         unlink('composer.phar');
         unlink('public/install.php');
     ?>
+    <script type="text/javascript">
+        window.location.href = '/install'
+    </script>
 </body>
 
 </html>
