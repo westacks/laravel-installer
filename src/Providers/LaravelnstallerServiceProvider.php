@@ -6,37 +6,21 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelnstallerServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publish('laravel-installer');
-            $this->registerCommands();
-        }
         $this->loadRoutesFrom(__DIR__.'/../../routes/installer.php');
-        $this->registerBindings();
-    }
-
-    private function publish($tag = null)
-    {
-        $this->mergeConfigFrom(__DIR__.'/../../config/installer.php', 'installer');
-
+        $this->loadViewsFrom(__DIR__.'/../../views', 'installer');
         $this->publishes([
             __DIR__.'/../../config/installer.php' => $this->getConfigPath('installer.php'),
             __DIR__.'/../../public/install.php' => $this->getPublicPath('install.php'),
             __DIR__.'/../../views' => $this->getBasePath('resources/views/vendor/installer'),
-        ], $tag);
+        ], 'installer');
     }
 
-    private function registerBindings()
+    public function register()
     {
-        //
+        $this->mergeConfigFrom(__DIR__.'/../../config/installer.php', 'installer');
     }
-
-    private function registerCommands()
-    {
-        // $this->commands([]);
-    }
-
 
 
     // Utility methods

@@ -23,10 +23,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Initializing...</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" >
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css/normalize.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css">
     <style>
         body {
             font-family: 'Nunito', sans-serif;
@@ -142,11 +144,11 @@
         copy('https://getcomposer.org/installer', 'composer-setup.php');
         if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3'){
             shell_exec('php composer-setup.php --no-ansi >> install.log 2>&1');
+            shell_exec('php composer.phar install --optimize-autoloader --no-dev --no-ansi >> install.log 2>&1');
+            unlink('composer.phar');
+            unlink('public/install.php');
         }
         unlink('composer-setup.php');
-        shell_exec('php composer.phar install --optimize-autoloader --no-dev --no-ansi >> install.log 2>&1');
-        unlink('composer.phar');
-        unlink('public/install.php');
     ?>
     <script type="text/javascript">
         window.location.href = '/install'

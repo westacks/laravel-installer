@@ -3,10 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>@yield('title')</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css/normalize.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css">
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+    </style>
 </head>
-<body>
-    @yield('content')
-</body>
+@yield('body')
 </html>
