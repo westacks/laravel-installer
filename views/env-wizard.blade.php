@@ -16,9 +16,20 @@
             Fill up form bellow and save your environment settings.
         </div>
 
-        <div class="text-center mt-8">
-            Form
-        </div>
+        <form method="post" action="{{ route('install.env.wizard') }}">
+            @csrf
+
+            <div class="text-center mt-8">
+                Form
+            </div>
+
+            <div class="text-center mt-6">
+                <button type="submit" class="ml-5 bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-full">
+                    <i class="ml-2 fas fa-edit"></i> Save environment
+                </button>
+            </div>
+        
+        </form>
     </div>
 </body>
 

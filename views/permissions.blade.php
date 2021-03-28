@@ -35,7 +35,7 @@
         @endif
 
         <div class="text-center mt-8">
-            <a {{ !$permissions['errors'] ? 'href='.route('install.permissions') : '' }}
+            <a {{ !$permissions['errors'] ? 'href='.route('install.env') : '' }}
                 class="mx-auto bg-red-500 {{ $permissions['errors'] ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700' }}  text-white py-2 px-4 rounded-full">
                     Configure environment <i class="ml-2 fas fa-arrow-right"></i>
             </a>

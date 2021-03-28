@@ -11,6 +11,9 @@ class InstallMiddleware
         'install',
         'install/requirements',
         'install/permissions',
+        'install/env',
+        'install/env/wizard',
+        'install/env/editor',
     ];
 
     public function handle(Request $request, Closure $next)

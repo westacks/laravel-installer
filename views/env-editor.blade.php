@@ -16,13 +16,29 @@
             Configure your environment mannually.
         </div>
 
-        <div class="text-center mt-8">
-            <pre><code class="html" contenteditable="true" id="env">...</code></pre>
+        <div class="text-left w-10/12 mt-8">
+            <pre class="w-full"><code class="w-full" contenteditable="true" id="env">{{$env}}</code></pre>
+        </div>
+
+        <div class="text-center mt-6">
+            <form method="post" action="{{ route('install.env.editor') }}" onsubmit="submitEnv">
+                @csrf
+                <button type="submit" class="ml-5 bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-full">
+                    <i class="ml-2 fas fa-edit"></i> Save environment
+                </button>
+            </form>
         </div>
     </div>
 
     <script type="text/javascript">
         hljs.highlightAll();
+
+        function submitEnv(event) {
+            event.preventDefault();
+            let data = new FormData(event.target);
+            data.append('env', document.getElementById('env').innerText);
+            event.target.submit();
+        }
     </script>
 </body>
 
