@@ -62,11 +62,11 @@ class InstallController extends Controller
 
     private function putenv(string $key, string $value = '')
     {
-        if (file_exists($path = app()->environmentFilePath()) === false) {
+        if (!file_exists($path = app()->environmentFilePath())) {
             return false;
         }
 
-        if (preg_match("/^$key=.*$/m", file_get_contents($path)) === false) {
+        if (!preg_match("/^$key=.*$/m", file_get_contents($path))) {
             file_put_contents($path, PHP_EOL."$key=$value".PHP_EOL, FILE_APPEND);
         }
 
