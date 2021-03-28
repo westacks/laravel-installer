@@ -17,8 +17,6 @@
         </div>
 
         <form method="post" action="{{ route('install.env.wizard') }}">
-            @csrf
-
             <div class="text-center mt-8">
                 Form
             </div>

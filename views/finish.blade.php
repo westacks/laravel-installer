@@ -5,7 +5,7 @@
 @section('body')
 
 <body>
-    @include('installer::include.wizard', ['step' => 1])
+    @include('installer::include.wizard', ['step' => 5])
 
     <div style="min-height: calc(100vh - 224px)" class="flex flex-col items-center justify-center">
         <div class="text-center text-3xl mt-6 font-bold">

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class InstallMiddleware
 {
     protected $except = [
+        'install',
         'install/*',
     ];
 
