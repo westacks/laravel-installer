@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 class InstallMiddleware
 {
     protected $except = [
-        'install.start',
-        'install.requirements',
-        'install.permissions',
+        'install',
+        'install/requirements',
+        'install/permissions',
     ];
 
     public function handle(Request $request, Closure $next)
     {
-        if (config('installer.app_configured') === false && !in_array($request->route()->getName(), $this->except)) {
+        if (config('installer.app_configured') === false && !in_array($request->path(), $this->except) ) {
             abort(404);
         }
 

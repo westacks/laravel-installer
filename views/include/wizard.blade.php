@@ -40,7 +40,7 @@
                 @include('installer::include.icon', ['name' => 'flag-checkered', 'active' => $step > 4])
             </div>
 
-            <div class="text-xs text-center md:text-base">Finished</div>
+            <div class="text-xs text-center md:text-base">Finish</div>
         </div>
     </div>
 </div>

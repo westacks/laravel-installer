@@ -12,8 +12,9 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://unpkg.com/normalize.css/normalize.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets/styles/default.min.css">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-
+    <script src="https://unpkg.com/@highlightjs/cdn-assets/highlight.min.js"></script>
     <style>
         body {
             font-family: 'Nunito', sans-serif;
