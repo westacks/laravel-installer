@@ -1,7 +1,11 @@
 <?php
+    if (defined('LARAVEL_START')) {
+        die('Permission denied: Laravel application already initialized!');
+    }
     if (isset($GLOBALS['argv'])) {
         die('This file should be processed only by webserver!');
     }
+    // Redirect to configuration page after application initialized
     header("Location: /install");
 ?>
 <!DOCTYPE html>
@@ -125,13 +129,18 @@
     <?php 
         set_time_limit(0);
         chdir('..');
+        // Init Environment
+        file_exists('.env') || copy('.env.example', '.env');
+        // Install composer
         copy('https://getcomposer.org/installer', 'composer-setup.php');
         
         if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3'){
             shell_exec('php composer-setup.php --no-ansi >> install.log 2>&1');
         }
         unlink('composer-setup.php');
+        // Install production dependencies
         shell_exec('php composer.phar install --optimize-autoloader --no-dev --no-ansi >> install.log 2>&1');
+        // Remove garbage
         unlink('composer.phar');
         unlink('public/install.php');
     ?>

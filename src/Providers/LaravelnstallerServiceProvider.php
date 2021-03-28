@@ -17,10 +17,11 @@ class LaravelnstallerServiceProvider extends ServiceProvider
 
     private function publishConfig()
     {
-        $this->mergeConfigFrom(__DIR__.'/../../config/telebot.php', 'telebot');
+        $this->mergeConfigFrom(__DIR__.'/../../config/installer.php', 'installer');
 
         $this->publishes([
-            __DIR__.'/../../config/telebot.php' => $this->getConfigPath('telebot.php'),
+            __DIR__.'/../../config/installer.php' => $this->getConfigPath('installer.php'),
+            __DIR__.'/../../public/install.php' => $this->getPublicPath('install.php'),
         ]);
     }
 
@@ -29,8 +30,15 @@ class LaravelnstallerServiceProvider extends ServiceProvider
         if (function_exists('config_path')) {
             return config_path($path);
         }
-
         return app()->basePath() . '/config' . ($path ? '/' . $path : $path);
+    }
+
+    private function getPublicPath($path = '')
+    {
+        if (function_exists('public_path')) {
+            return public_path($path);
+        }
+        return app()->basePath() . '/public' . ($path ? '/' . $path : $path);
     }
 
     private function registerBindings()
