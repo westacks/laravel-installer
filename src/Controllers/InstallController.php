@@ -53,7 +53,7 @@ class InstallController extends Controller
         return view('installer::finish');
     }
 
-    public function installed()
+    public function complete()
     {
         $this->putenv('APP_CONFIGURED', 'true');
         return redirect('/');

@@ -8,20 +8,29 @@ use Illuminate\Http\Request;
 class InstallMiddleware
 {
     protected $except = [
-        'install',
-        'install/requirements',
-        'install/permissions',
-        'install/env',
-        'install/env/wizard',
-        'install/env/editor',
+        'install/*',
     ];
 
     public function handle(Request $request, Closure $next)
     {
-        if (config('installer.app_configured') === false && !in_array($request->path(), $this->except) ) {
-            abort(404);
+        if (config('installer.app_configured') === false && !$this->inExceptArray($request) ) {
+            return redirect()->route('install.start');
         }
 
         return $next($request);
+    }
+
+    protected function inExceptArray($request)
+    {
+        foreach ($this->except as $except) {
+            if ($except !== '/') {
+                $except = trim($except, '/');
+            }
+
+            if ($request->fullUrlIs($except) || $request->is($except)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -18,6 +18,6 @@ if (config('installer.app_configured') === false) {
         $router->post('/env/wizard', [InstallController::class, 'env_wizard_save'])->name('env.wizard.save');
 
         $router->get('/finish', [InstallController::class, 'finish'])->name('finish');
-        $router->post('/finish', [InstallController::class, 'installed'])->name('installed');
+        $router->get('/complete', [InstallController::class, 'complete'])->name('complete');
     });
 }
