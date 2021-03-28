@@ -1,6 +1,6 @@
 {
     "name": "westacks/laravel-installer",
-    "description": "Automaticaly istall, configure and update your client's Laravel apps from source using web interface.",
+    "description": "Automaticaly istall, configure and update your client's Laravel apps from source using web interface or artissan console.",
     "type": "library",
     "homepage": "https://github.com/westacks/laravel-installer",
     "license": "MIT",
@@ -13,20 +13,12 @@
     ],
     "require": {
         "php": "^7.2 || ^8.0",
+        "guzzlehttp/guzzle": "^6.0 || ^7.0",
         "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^3.5 || ^4.0 || ^5.0 || ^6.0",
-        "phpunit/phpunit": "^8.0"
     },
     "autoload": {
         "psr-4": {
             "WeStacks\\Laravel\\Installer\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "WeStacks\\Laravel\\Installer\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -36,7 +28,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                
+                "WeStacks\\Laravel\\Installer\\Providers\\LaravelnstallerServiceProvider"
             ],
             "aliases": {
 
