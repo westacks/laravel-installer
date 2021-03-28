@@ -2,6 +2,7 @@
     if (isset($GLOBALS['argv'])) {
         die('This file should be processed only by webserver!');
     }
+    header("Location: /install");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -133,7 +134,6 @@
         shell_exec('php composer.phar install --optimize-autoloader --no-dev --no-ansi >> install.log 2>&1');
         unlink('composer.phar');
         unlink('public/install.php');
-        header("Location: /install");
     ?>
 </body>
 
