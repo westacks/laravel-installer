@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Log;
-
 return [
     /*-----------------------------------------------------------------------------
     | App Version
@@ -15,6 +13,22 @@ return [
     |
     */
     "app_version" => env('APP_VERSION', '0.0.0'),
+
+    /*-----------------------------------------------------------------------------
+    | App Configured
+    |------------------------------------------------------------------------------
+    |
+    | Determines is app is configured. If "true", unloads graphical installer from
+    | available routes. This parameter is automatically sets "true" after
+    | successfull app installation.
+    |
+    | WARNING! Changing it back to "false" during production will cause breaking
+    | permission issues and expose private env variables. Do it only if you know
+    | what you are doing or be sure you running you application under maintainance
+    | mode: https://laravel.com/docs/configuration#maintenance-mode
+    |
+    */
+    "app_configured" => env('APP_CONFIGURED', false),
 
     /*-----------------------------------------------------------------------------
     | Environment specific worker tasks
@@ -48,24 +62,58 @@ return [
     | Update source config
     |------------------------------------------------------------------------------
     |
-    | Log channel which will be used to log any update related info.
-    | By default it uses default Laravel logger, but you may specify any custom
-    | if it necessary.
+    | Config to obtain latest app releases. 
     | 
-    | If you are using private repository be sure you are not exposing any
-    | private tokens.
+    | If you are using private repository, be sure you are not exposing any
+    | private tokens - your clients should obtain their own.
     | 
-    | Avaliative source types:
-    | - github
-    | - bitbucket
-    | - gitlab
-    | - http
+    | Supported source types: "github", "bitbucket", "gitlab", "http"
     |
     */
     "source" => [
+        // Source repository type
         "type"      => "github",
+
+        /*
+        | Repository credentials.
+        | "vendor" and "project" variables are used for "github", "bitbucket", "gitlab" types.
+        | "url" variable is used for "http" type.
+        | "token" variable required for private repositories (obrainable by your source provider).
+        */
+        "url"       => "https://yourappsources.com",
         "vendor"    => "example_vendor",
         "project"   => "example_project",
-        "token"     => env('INSTALLER_SOURCE_TOKEN', null)
+        "token"     => env('INSTALLER_SOURCE_TOKEN', null),
+
+        // This folders will be ignored during update
+        'exclude'   => [
+            '__MACOSX',
+            'node_modules',
+            'bootstrap/cache',
+            'bower',
+            'storage/app',
+            'storage/framework',
+            'storage/logs',
+            'storage/self-update',
+            'vendor',
+        ],
+    ],
+
+    /*-----------------------------------------------------------------------------
+    | Important App Variables
+    |------------------------------------------------------------------------------
+    |
+    | This is array of .env variables and their description which installer will
+    | propose to configure during app installation proccess.
+    |
+    | If possible, views will try to localize your descriptions using current app locale.
+    |
+    */
+    "should_config" => [
+        "APP_NAME"      => 'Your application name',
+        "APP_URL"       => 'Your application base URL (http://example.com)',
+        "DB_CONNECTION" => 'Database connection type (mysql, sqlite, pgsql, sqlsrv etc.)',
+        "DATABASE_URL"  => 'Database URL (driver://username:password@host:port/database?options)',
+        // ...
     ]
 ];

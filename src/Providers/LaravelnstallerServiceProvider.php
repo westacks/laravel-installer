@@ -12,6 +12,7 @@ class LaravelnstallerServiceProvider extends ServiceProvider
             $this->publish('laravel-installer');
             $this->registerCommands();
         }
+        $this->loadRoutesFrom(__DIR__.'/../../routes/installer.php');
         $this->registerBindings();
     }
 
@@ -22,6 +23,7 @@ class LaravelnstallerServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../config/installer.php' => $this->getConfigPath('installer.php'),
             __DIR__.'/../../public/install.php' => $this->getPublicPath('install.php'),
+            __DIR__.'/../../views' => $this->getBasePath('resources/views/vendor/installer'),
         ], $tag);
     }
 
@@ -32,9 +34,7 @@ class LaravelnstallerServiceProvider extends ServiceProvider
 
     private function registerCommands()
     {
-        $this->commands([
-            //
-        ]);
+        // $this->commands([]);
     }
 
 
@@ -47,6 +47,14 @@ class LaravelnstallerServiceProvider extends ServiceProvider
             return config_path($path);
         }
         return app()->basePath() . '/config' . ($path ? '/' . $path : $path);
+    }
+
+    private function getBasePath($path = '')
+    {
+        if (function_exists('base_path')) {
+            return base_path($path);
+        }
+        return app()->basePath() . ($path ? '/' . $path : $path);
     }
 
     private function getPublicPath($path = '')
