@@ -21,7 +21,7 @@
         </div>
 
         <div class="text-center my-6">
-            <form id="env-form" enctype="multipart/form-data" method="post" action="{{ route('install.env.editor') }}">
+            <form id="env-form" enctype="multipart/form-data" method="post" action="{{ route('install.env.editor.save') }}">
                 <button type="submit" class="ml-5 bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-full">
                     <i class="ml-2 fas fa-edit"></i> Save environment
                 </button>

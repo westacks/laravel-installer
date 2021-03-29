@@ -12,21 +12,36 @@ class LaravelnstallerServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/../../routes/installer.php');
         $this->loadViewsFrom(__DIR__.'/../../views', 'installer');
-        $this->publishes([
-            __DIR__.'/../../config/installer.php' => $this->getConfigPath('installer.php'),
-            __DIR__.'/../../public/install.php' => $this->getPublicPath('install.php'),
-        ], 'installer');
-        $this->publishes([
-            __DIR__.'/../../views' => $this->getBasePath('resources/views/vendor/installer'),
-        ], 'installer.views');
 
-        $kernel = $this->app->make(Kernel::class);
-        $kernel->pushMiddleware(InstallMiddleware::class);
+        $this->publishFiles();
+        $this->configureMiddleware();
     }
 
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/installer.php', 'installer');
+    }
+
+
+    protected function publishFiles(string $tag = 'installer')
+    {
+        $this->publishes([
+            __DIR__.'/../../config/installer.php' => $this->getConfigPath('installer.php'),
+        ], "$tag.config");
+
+        $this->publishes([
+            __DIR__.'/../../public/install.php' => $this->getPublicPath('install.php'),
+        ], "$tag.public");
+
+        $this->publishes([
+            __DIR__.'/../../views' => $this->getBasePath('resources/views/vendor/installer'),
+        ], "$tag.views");
+    }
+
+    protected function configureMiddleware()
+    {
+        if (config('installer.app_configured', false)) return;
+        $this->app->make(Kernel::class)->pushMiddleware(InstallMiddleware::class);
     }
 
 
@@ -37,7 +52,7 @@ class LaravelnstallerServiceProvider extends ServiceProvider
         if (function_exists('config_path')) {
             return config_path($path);
         }
-        return app()->basePath() . '/config' . ($path ? '/' . $path : $path);
+        return $this->app->basePath() . '/config' . ($path ? '/' . $path : $path);
     }
 
     private function getBasePath($path = '')
@@ -45,7 +60,7 @@ class LaravelnstallerServiceProvider extends ServiceProvider
         if (function_exists('base_path')) {
             return base_path($path);
         }
-        return app()->basePath() . ($path ? '/' . $path : $path);
+        return $this->app->basePath() . ($path ? '/' . $path : $path);
     }
 
     private function getPublicPath($path = '')
@@ -53,6 +68,6 @@ class LaravelnstallerServiceProvider extends ServiceProvider
         if (function_exists('public_path')) {
             return public_path($path);
         }
-        return app()->basePath() . '/public' . ($path ? '/' . $path : $path);
+        return $this->app->basePath() . '/public' . ($path ? '/' . $path : $path);
     }
 }

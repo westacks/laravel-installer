@@ -4,7 +4,6 @@ namespace WeStacks\Laravel\Installer\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Str;
 use WeStacks\Laravel\Installer\Helpers\RequirementsChecker;
 
 class InstallController extends Controller
@@ -34,17 +33,40 @@ class InstallController extends Controller
 
     public function env_editor_save(Request $request)
     {
+        $request->validate([
+            'env' => 'required|regex:/^[0-9A-Z_]*=.*$/gm'
+        ]);
+
         file_put_contents(app()->environmentFilePath(), $request->input('env'));
         return redirect()->route('install.finish');
     }
 
     public function env_wizard()
     {
-        return view('installer::env-wizard');
+        $variables = config('installer.should_config');
+
+        foreach ($variables as $var => $description) {
+            $variables[$var] = [
+                'label' => $description,
+                'value' => getenv($var)
+            ];
+        }
+        return view('installer::env-wizard', compact('variables'));
     }
 
     public function env_wizard_save(Request $request)
     {
+        $variables = config('installer.should_config');
+
+        foreach ($variables as $var => $description) {
+            $variables[$var] = 'required|string';
+        }
+        $request->validate($variables);
+
+        foreach ($request->all() as $key => $value) {
+            $this->putenv($key, $value);
+        }
+
         return redirect()->route('install.finish');
     }
 
@@ -58,7 +80,6 @@ class InstallController extends Controller
         $this->putenv('APP_CONFIGURED', 'true');
         return redirect('/');
     }
-
 
     private function putenv(string $key, string $value = '')
     {

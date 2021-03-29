@@ -21,6 +21,9 @@ return [
     | Determines is app is configured. If "true", unloads graphical installer from
     | available routes. This parameter is automatically sets "true" after
     | successfull app installation.
+    | 
+    | If you want to completely remove graphical installer from your application,
+    | hardcode this parameter as "true".
     |
     | WARNING! Changing it back to "false" during production will cause breaking
     | permission issues and expose private env variables. Do it only if you know
@@ -116,9 +119,9 @@ return [
 
         /*
         | Repository credentials.
-        | "vendor" and "project" variables are used for "github", "bitbucket", "gitlab" types.
-        | "url" variable is used for "http" type.
-        | "token" variable required for private repositories (obrainable by your source provider).
+        | - "vendor" and "project" variables are used for "github", "bitbucket", "gitlab" types.
+        | - "url" variable is used for "http" type.
+        | - "token" variable required for private repositories (obrainable by your source provider).
         */
         "url"       => "https://yourappsources.com",
         "vendor"    => "example_vendor",
