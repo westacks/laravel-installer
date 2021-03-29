@@ -34,7 +34,7 @@ class InstallController extends Controller
     public function env_editor_save(Request $request)
     {
         $request->validate([
-            'env' => 'required|regex:/^[0-9A-Z_]*=.*$/gm'
+            'env' => 'required|regex:/^[0-9A-Z_]*=.*$/m'
         ]);
 
         file_put_contents(app()->environmentFilePath(), $request->input('env'));
@@ -83,20 +83,31 @@ class InstallController extends Controller
 
     private function putenv(string $key, string $value = '')
     {
+        $res = $this->canBeOnlyString($value) ? "$key=\"$value\"" : "$key=$value";
+
         if (!file_exists($path = app()->environmentFilePath())) {
             return false;
         }
 
         if (!preg_match("/^$key=.*$/m", file_get_contents($path))) {
-            file_put_contents($path, PHP_EOL."$key=$value".PHP_EOL, FILE_APPEND);
+            file_put_contents($path, PHP_EOL.$res.PHP_EOL, FILE_APPEND);
         }
 
         else {
             file_put_contents($path, preg_replace(
                 "/^$key=.*$/m",
-                "$key=$value",
+                $res,
                 file_get_contents($path)
             ));
+        }
+
+        return true;
+    }
+
+    private function canBeOnlyString($variable)
+    {
+        if (is_numeric($variable) || $variable == 'true' || $variable == 'false' || $variable == 'null' || $variable == '') {
+            return false;
         }
 
         return true;

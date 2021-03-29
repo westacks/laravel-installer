@@ -10,18 +10,14 @@ class LaravelnstallerServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/../../routes/installer.php');
-        $this->loadViewsFrom(__DIR__.'/../../views', 'installer');
-
+        $this->loadWebInstaller();
         $this->publishFiles();
-        $this->configureMiddleware();
     }
 
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/installer.php', 'installer');
     }
-
 
     protected function publishFiles(string $tag = 'installer')
     {
@@ -38,9 +34,12 @@ class LaravelnstallerServiceProvider extends ServiceProvider
         ], "$tag.views");
     }
 
-    protected function configureMiddleware()
+    protected function loadWebInstaller()
     {
         if (config('installer.app_configured', false)) return;
+    
+        $this->loadViewsFrom(__DIR__.'/../../views', 'installer');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/installer.php');
         $this->app->make(Kernel::class)->pushMiddleware(InstallMiddleware::class);
     }
 

@@ -16,12 +16,12 @@
             Fill up form bellow and save your environment settings.
         </div>
 
-        <form method="post" action="{{ route('install.env.wizard.save') }}">
-            <div class="text-center mt-8">
+        <form class="mt-8 w-10/12 text-center" method="post" action="{{ route('install.env.wizard.save') }}">
+            <div class="text-left">
                 @foreach ($variables as $name => $var)
-                    <div class="mb-4 w-10/12">
+                    <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ $name }}">
-                            {{ $var['description'] }}
+                            {{ $var['label'] }}
                         </label>
                         <input type="text" name="{{ $name }}" id="{{ $name }}" value="{{ $var['value'] }}"class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
